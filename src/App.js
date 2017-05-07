@@ -31,7 +31,11 @@ class HomeScreen extends Component {
   }
   handleSubmit() {
     api.getUsers(this.state.username).then(res => {
-      this.props.navigation.navigate("User", { user: res })
+      if (res.message === "Not Found") {
+        alert("User not found")
+      } else {
+        this.props.navigation.navigate("User", { user: res })
+      }
     })
     this.setState({
       username: "",
